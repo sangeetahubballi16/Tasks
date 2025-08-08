@@ -1,0 +1,112 @@
+public class Main {
+    public static void main(String[] args) {
+        Person raj = new Person("Raj", 28);
+        SavingsAccount sa = new SavingsAccount(raj, 2000);
+
+        sa.deposit(1000);
+        sa.withdraw(2300);  
+        System.out.println("SavingsAccount: " + sa);
+
+        Person ram = new Person("Ram", 26);
+        CurrentAccount ca = new CurrentAccount(ram, 1000);
+
+        ca.deposit(500);
+        boolean success = ca.withdraw(1800); 
+        System.out.println("Withdraw from current account successful? " + success);
+        System.out.println("CurrentAccount: " + ca);
+    }
+}
+
+class Person {
+    private String name;
+    private float age;
+
+    public Person(String name, float age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public float getAge() { return age; }
+    public void setAge(float age) { this.age = age; }
+
+    public String toString() {
+        return "Person[name=" + name + ", age=" + age + "]";
+    }
+}
+
+class Account {
+    private static long nextAccNum = 1000001;
+    protected long accNum;
+    protected double balance;
+    protected Person accHolder;
+
+    public Account(Person accHolder, double initialBalance) {
+        this.accNum = nextAccNum++;
+        this.accHolder = accHolder;
+        this.balance = initialBalance;
+    }
+
+    public long getAccNum() { return accNum; }
+    public double getBalance() { return balance; }
+    public Person getAccHolder() { return accHolder; }
+    public void setAccHolder(Person accHolder) { this.accHolder = accHolder; }
+
+    public void deposit(double amount) {
+        if (amount > 0) balance += amount;
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount > 0 && balance - amount >= 0) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public String toString() {
+        return "Account[accNum=" + accNum + ", balance=" + balance + ", accHolder=" + accHolder + "]";
+    }
+}
+
+class SavingsAccount extends Account {
+    public static final double MINIMUM_BALANCE = 500.0;
+
+    public SavingsAccount(Person accHolder, double initialBalance) {
+        super(accHolder, initialBalance);
+    }
+
+    @Override
+    public boolean withdraw(double amount) {
+        if (amount > 0 && balance - amount >= MINIMUM_BALANCE) {
+            balance -= amount;
+            return true;
+        } else {
+            System.out.println("Withdrawal failed: Minimum balance requirement not met.");
+            return false;
+        }
+    }
+}
+
+class CurrentAccount extends Account {
+    private double overdraftLimit = 1000.0; // you can set this as needed
+
+    public CurrentAccount(Person accHolder, double initialBalance) {
+        super(accHolder, initialBalance);
+    }
+
+    public double getOverdraftLimit() { return overdraftLimit; }
+    public void setOverdraftLimit(double limit) { this.overdraftLimit = limit; }
+
+    @Override
+    public boolean withdraw(double amount) {
+        if (amount > 0 && balance - amount >= -overdraftLimit) {
+            balance -= amount;
+            return true;
+        } else {
+            System.out.println("Withdrawal failed: Overdraft limit exceeded.");
+            return false;
+        }
+    }
+}
