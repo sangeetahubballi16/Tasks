@@ -53,7 +53,7 @@ public class lab7 {
 			// TODO Auto-generated method stub
 			
 			Scanner sc = new Scanner(System.in);
-			lab7 l1 = new lab7("Rohit","Kumar M",'M',999999999);
+			lab7 l1 = new lab7("Sangeeta","Hubballi",'F',999999999);
 			
 			System.out.println("Fisrt Name : "+l1.getfName());
 			System.out.println("Last Name : "+l1.getlName());
@@ -64,4 +64,5 @@ public class lab7 {
 		}
 
 	}
+
 
