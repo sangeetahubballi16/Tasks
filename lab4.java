@@ -6,9 +6,9 @@ public class lab4 {
 		// TODO Auto-generated method stub
 		System.out.println("Person Details:");
 		System.out.println("---------------");
-		System.out.println("First name: Rohit");
-		System.out.println("Last Name: Kumar M");
-		System.out.println("Gender: M");
+		System.out.println("First name: Sangeeta");
+		System.out.println("Last Name: Hubballi");
+		System.out.println("Gender: F");
 		System.out.println("Age: 24");
 		System.out.println("Weight: 63");
 
@@ -16,3 +16,4 @@ public class lab4 {
 	}
 
 }
+
